@@ -1,8 +1,9 @@
-name: Pull Updates from LogSeq
+name: Dispatch Push to LogSeq GH Pages
 
 on:
-  schedule:
-    - cron: "0 * * * *"  # Run every hour (adjust the schedule as needed)
+  repository_dispatch:
+    types:
+      - logseq-gh-pages-push
 
 jobs:
   pull-updates:
