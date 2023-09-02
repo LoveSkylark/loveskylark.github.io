@@ -1,0 +1,22 @@
+name: Push Updates from LogSeq
+
+on:
+  repository_dispatch:
+    types:
+      - logseq-gh-pages-push
+
+jobs:
+  push-updates:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Push Updates to GitHub Pages
+        run: |
+          # Replace with the commands to push updates from LogSeq/gh-pages to loveskylark.github.io/gh-pages
+          git config user.name "GitHub Actions"
+          git config user.email "actions@github.com"
+          git pull origin gh-pages
+          git push origin gh-pages
