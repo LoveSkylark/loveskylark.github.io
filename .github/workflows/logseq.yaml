@@ -1,22 +1,20 @@
-name: Dispatch Push to LogSeq GH Pages
-
 on:
-  repository_dispatch:
-    types:
-      - logseq-gh-pages-push
+  schedule:
+    - cron: '0 * * * *'
+  workflow_dispatch:
 
 jobs:
-  pull-updates:
+  repo-sync:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
+      - uses: actions/checkout@v3
+        with:
+          persist-credentials: false
 
-      - name: Pull Updates from LogSeq
-        run: |
-          # Replace with the commands to pull updates from LogSeq/gh-pages
-          git config user.name "GitHub Actions"
-          git config user.email "actions@github.com"
-          git fetch origin gh-pages
-          git reset --hard origin/gh-pages
+      - name: repo-sync
+        uses: repo-sync/github-sync@v2
+        with:
+          source_repo: 'LoveSkylark/LogSeq'
+          source_branch: 'gh-pages'
+          destination_branch: 'gh-pages'
+          github_token: ${{ secrets.PAT }}
