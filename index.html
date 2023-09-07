@@ -1,32 +1,23 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Mainy</title>
+  <title>Fetch Test</title>
 </head>
 <body>
-  <h1>Mainx</h1>
-  
-  <ul id="link-list"></ul>
+  <button onclick="fetchAndDisplay()">Fetch Data</button>
+  <div id="output"></div>
 
   <script>
-    // Fetch the list of subfolders from the server
-    fetch('./')
-      .then(response => response.json())
-      .then(subfolders => {
-        // Iterate over the subfolders and create the links
-        subfolders.forEach(function(folder) {
-          var folderUrl = folder + '/index.html';
-          var listItem = document.createElement('li');
-          var linkElement = document.createElement('a');
-          linkElement.href = folderUrl;
-          linkElement.textContent = folder;
-          listItem.appendChild(linkElement);
-          document.getElementById('link-list').appendChild(listItem);
+    function fetchAndDisplay() {
+      fetch('./')
+        .then(response => response.json())
+        .then(data => {
+          document.getElementById('output').textContent = JSON.stringify(data);
+        })
+        .catch(error => {
+          console.log('Error fetching data:', error);
         });
-      })
-      .catch(error => {
-        console.log('Error fetching subfolders:', error);
-      });
+    }
   </script>
 </body>
 </html>
