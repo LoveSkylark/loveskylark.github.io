@@ -1,23 +1,18 @@
 <!DOCTYPE html>
 <html>
-<head>
-  <title>Fetch Test</title>
-</head>
-<body>
-  <button onclick="fetchAndDisplay()">Fetch Data</button>
-  <div id="output"></div>
-
+  <head>
+    <title>My App</title>
+  </head>
+  <body>
+    <h1>My App</h1>
+    <h2 id="header">Post Path: {PATH}</h2>
+  </body>
   <script>
-    function fetchAndDisplay() {
-      fetch('./')
-        .then(response => response.json())
-        .then(data => {
-          document.getElementById('output').textContent = JSON.stringify(data);
-        })
-        .catch(error => {
-          console.log('Error fetching data:', error);
-        });
+    if (window.location.hash.length > 1) {
+      const path = window.location.hash.replace('#', '')
+      history.pushState({ page: 1 }, "Some title", '/static-dynamic-routing' + path)
+
+      document.getElementById('header').innerHTML = document.getElementById('header').innerHTML.replace('{PATH}', path)
     }
   </script>
-</body>
 </html>
