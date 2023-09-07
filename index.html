@@ -7,6 +7,7 @@
       font-family: Arial, sans-serif;
       background-color: #f5f5f5;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       height: 100vh;
@@ -25,10 +26,6 @@
       flex-wrap: wrap;
       justify-content: center;
       align-items: center;
-    }
-
-    #subfolder-list li {
-      margin: 10px;
     }
 
     .button {
@@ -51,7 +48,7 @@
 </head>
 <body>
   <h1>Welcome to My GitHub Pages</h1>
-  <ul id="subfolder-list"></ul>
+  <div id="subfolder-list"></div>
 
   <script>
     // Fetch the subfolder list dynamically
@@ -61,13 +58,11 @@
         const subfolderList = document.getElementById('subfolder-list');
         data.forEach(item => {
           if (item.type === 'dir') {
-            const listItem = document.createElement('li');
             const link = document.createElement('a');
             link.href = item.name;
             link.textContent = item.name;
             link.classList.add('button');
-            listItem.appendChild(link);
-            subfolderList.appendChild(listItem);
+            subfolderList.appendChild(link);
           }
         });
       })
