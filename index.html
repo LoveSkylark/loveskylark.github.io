@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Index</title>
+</head>
+<body>
+  <h1>Index</h1>
+  
+  <ul id="link-list"></ul>
+
+  <script>
+    // Function to fetch subfolder URLs and build link list
+    function buildLinkList() {
+      // Fetch the current URL path
+      var currentPath = window.location.pathname;
+
+      // Fetch the subfolder URLs by making an AJAX request to the server
+      var xhr = new XMLHttpRequest();
+      xhr.open('GET', currentPath, true);
+      xhr.onreadystatechange = function () {
+        if (xhr.readyState === 4 && xhr.status === 200) {
+          var subfolders = xhr.responseXML.getElementsByTagName('a');
+
+          // Iterate over the subfolders and check for index.html files
+          for (var i = 0; i < subfolders.length; i++) {
+            var link = subfolders[i].getAttribute('href');
+            if (link.endsWith('/index.html')) {
+              var listItem = document.createElement('li');
+              var linkElement = document.createElement('a');
+              linkElement.href = link;
+              linkElement.textContent = link;
+              listItem.appendChild(linkElement);
+              document.getElementById('link-list').appendChild(listItem);
+            }
+          }
+        }
+      };
+      xhr.send();
+    }
+
+    // Call the function when the page finishes loading
+    window.addEventListener('load', buildLinkList);
+  </script>
+</body>
+</html>
