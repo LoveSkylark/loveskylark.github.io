@@ -1,4 +1,0 @@
-# LogSeq
-# LogSeq
-# LogSeq
- ##NEWSTUFF
